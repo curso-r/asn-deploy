@@ -17,7 +17,8 @@
 
 -   [Conta no Docker Hub](https://www.docker.com/products/docker-hub)
 
--   [Conta na Azure](https://portal.azure.com/#home)
+-   [Conta na Google Cloud
+    Platform](https://console.cloud.google.com/?hl=pt-br)
 
 -   [Conta no Github](https://github.com/)
 
@@ -27,6 +28,7 @@
 install.packages("usethis")
 install.packages("httr")
 install.packages("plumber")
+install.packages("shiny")
 ```
 
 PS1: vou dar aula no Windows 10. PS2: O Docker é pesado (gigas e gigas).
