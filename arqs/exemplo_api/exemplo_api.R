@@ -13,3 +13,10 @@ function(msg = "") {
 function(a, b){
   as.numeric(a) + as.numeric(b)
 }
+
+#* Plota um histograma
+#* @png
+#* @get /hist
+function(){
+  hist(rnorm(1000))
+}
