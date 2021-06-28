@@ -15,8 +15,27 @@ function(a, b){
 }
 
 #* Plota um histograma
-#* @png
+#* @serializer png
 #* @get /hist
 function(){
   hist(rnorm(1000))
 }
+
+#* Hello world em HTML
+#* @serializer html
+#* @get /html
+function(){
+  "<html><h1>hello world</h1></html>"
+}
+
+
+#* @post /user
+function(req, id, name) {
+  list(
+    id = id,
+    name = name,
+    body = req$body,
+    raw = req$bodyRaw
+  )
+}
+# curl --data "id=123&name=Jennifer" "http://localhost:8000/user"

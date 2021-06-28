@@ -1,0 +1,15 @@
+docker run hello-world
+docker images
+docker ps
+docker run ubuntu:latest
+docker ps
+docker ps -a
+docker run hello-world -t opa
+
+docker build .
+docker build . -t minhaImagem
+docker build . -t athosdamiani/minhaimagem
+
+docker login
+docker push athosdamiani/minhaimagem
+docker pull ubuntu:latest
