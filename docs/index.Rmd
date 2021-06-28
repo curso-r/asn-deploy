@@ -1,0 +1,18 @@
+---
+output: github_document
+---
+
+# Slides
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+htmls <- list.files(".", pattern = "html")
+url_site <- "https://curso-r.github.io/asn-deploy/"
+
+data.frame(
+  Nome = htmls,
+  link = purrr::map_chr(paste0(url_site, htmls), ~ as.character(shiny::a(href = .x, "link")))
+) %>%
+  knitr::kable()
+```
+
