@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Deploy de Shiny</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Deploy de Shiny
+## Athos Petri Damiani
+### <img src = 'https://jedis.asn.rocks/pluginfile.php/1/theme_edumy/headerlogo1/1604959123/ASN_Logo_Site_Vertical%20-%20Copy1.png' width = '20%'>
+### Junho de 2021
+
+---
+
+
+
+
+
+# Shiny empacotado
+
+- Apps começam com uma ideia simples, mas vão **crescendo** até o ponto que não
+conseguimos mais entender onde estão os seus pedaços
+
+- Com **módulos**, é possível separar pedaços de um shiny em scripts separados, que
+são adicionados como funções dentro do app principal
+
+  - Um módulo pode usar funções de certo pacote, e às vezes esquecemos de checar
+  se ele está instalado quando o app for colocado em produção
+
+- Uma alternativa muito útil é desenvolver o shiny dentro de um **pacote**
+
+  - As **dependências** são checadas automaticamente
+  
+  - Os módulos se tornam **funções** do pacote
+  
+  - Tudo deve ficar **documentado** e organizado por padrão
+
+---
+# O pacote {golem}
+
+&gt; `{golem}` é um framework opinionado para construir aplicações shiny prontas
+para produção https://engineering-shiny.org
+
+- O `{golem}` cria **templates** estruturadas que facilitam o desenvolvimento,
+configuração, manutenção e implantação de um dashboard shiny
+
+  - A template é um **pacote** R, importante pelos motivos destacados antes
+  
+  - Contém uma coleção de funções que **aceleram** tarefas repetitivas
+  
+  - Possui diversos **atalhos** para criar arquivos comuns
+  
+  - Traz funções que automatizam a preparação para o **deploy**
+
+- Eu pessoalmente acho a template muito carregada, mas muita gente gosta
+
+---
+# Exemplo de {golem}
+
+- A função `create_golem()` cria um projeto-pacote com toda a estrutura
+
+  - `R/` deve conter as funções, `dev/` ajuda a montar o shiny e `inst/` fica
+  com os recursos auxiliares
+
+
+```r
+library(golem)
+
+create_golem("arqs/exemplo_shiny/", package_name = "exemplo")
+```
+
+- O primeiro passo é passar pelo arquivo `dev/01_start.R` para configurar o app
+
+- O segundo é desenvolver o app (`dev/02_dev.R` pode ajudar)
+
+- O último passo é criar a estrutura para deploy com `dev/03_deploy.R`
+
+  - Nunca esquecer de instalar o app e testar com `exemplo::run_app()`
+
+---
+
+
+```
+#&gt; ../arqs/exemplo_shiny/
+#&gt; +-- DESCRIPTION
+#&gt; +-- dev
+#&gt; |   +-- 01_start.R
+#&gt; |   +-- 02_dev.R
+#&gt; |   +-- 03_deploy.R
+#&gt; |   \-- run_dev.R
+#&gt; +-- Dockerfile
+#&gt; +-- exemplo_shiny.Rproj
+#&gt; +-- inst
+#&gt; |   +-- app
+#&gt; |   |   \-- www
+#&gt; |   |       \-- favicon.ico
+#&gt; |   \-- golem-config.yml
+#&gt; +-- NAMESPACE
+#&gt; \-- R
+#&gt;     +-- app_config.R
+#&gt;     +-- app_server.R
+#&gt;     +-- app_ui.R
+#&gt;     \-- run_app.R
+```
+
+---
+class: inverse, center, middle
+# Deploy II
+
+---
+# Preparação para deploy
+
+- Como o shiny é um pacote, podemos seguir os passos de **desenvolvimento** de
+pacotes antes de colocá-lo em produção
+
+  - Rodar `devtools::check()` para garantir que tudo está **em ordem**
+
+  - **Instalar** o app com `devtools::install()`
+  
+  - **Executar o app** em uma sessão limpa com `exemplo::run_app()`
+
+- Quando o shiny estiver pronto, adicionar um **Dockerfile** com `add_dockerfile()`
+
+  - O Dockerfile **não é otimizado** para o Google Cloud e isso pode implicar em
+  alguns problemas
+  
+  - Quando necessário, edite o Dockerfile para **adequá-lo** ao ambiente real
+  onde ele será implantado
+
+---
+
+
+```r
+add_dockerfile()
+```
+
+```{}
+FROM rocker/r-ver:4.0.2
+RUN apt-get update &amp;&amp; apt-get install -y  git-core libcurl4-openssl-dev libgit2-dev libssh2-1-dev libssl-dev libxml2-dev make pandoc pandoc-citeproc zlib1g-dev &amp;&amp; rm -rf /var/lib/apt/lists/*
+RUN echo "options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl')" &gt;&gt; /usr/local/lib/R/etc/Rprofile.site
+RUN R -e 'install.packages("remotes")'
+RUN R -e 'remotes::install_github("r-lib/remotes", ref = "97bbf81")'
+RUN Rscript -e 'remotes::install_version("config",upgrade="never", version = "0.3")'
+RUN Rscript -e 'remotes::install_version("golem",upgrade="never", version = "0.2.1")'
+RUN Rscript -e 'remotes::install_version("shiny",upgrade="never", version = "1.5.0")'
+RUN Rscript -e 'remotes::install_version("attempt",upgrade="never", version = "0.3.1")'
+RUN Rscript -e 'remotes::install_version("DT",upgrade="never", version = "0.13")'
+RUN Rscript -e 'remotes::install_version("glue",upgrade="never", version = "1.4.1")'
+RUN Rscript -e 'remotes::install_version("htmltools",upgrade="never", version = "0.5.0")'
+RUN mkdir /build_zone
+ADD . /build_zone
+WORKDIR /build_zone
+RUN R -e 'remotes::install_local(upgrade="never")'
+EXPOSE 80
+CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');exemplo::run_app()"
+```
+
+---
+# Exemplo de CD no GCP
+
+1. Menu Lateral
+
+1. Cloud Build
+
+1. **Acionadores**
+
+1. Conectar repositório
+
+1. GitHub
+
+1. Criar **gatilho**
+
+1. Editar gatilho
+
+1. Verificar progresso
+
+1. Garantir sucesso
+
+---
+# Exemplo de deploy no GCP
+
+1. Menu Lateral
+
+1. Google Compute Engine
+
+1. Criar **instância**
+
+1. Implante uma **imagem** de contêiner nesta instância de VM
+
+1. Menu Lateral
+
+1. Rede VPC
+
+1. Endereços **IP externos**
+
+1. Tipo: Temporário &gt; **Estático**
+
+---
+# Testando o shiny
+
+- **Navegar** para o link correpondente ao IP: http://104.198.249.27
+
+  - A **porta 80** é a padrão para o tráfego HTTP, então não há necessidade de
+  especificar nada
+
+&lt;img src="static/shiny.png" width="569" style="display: block; margin: auto;" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+---
+title: "Deploy de Shiny"
+subtitle: "Athos Petri Damiani"
+author: "<img src = 'https://jedis.asn.rocks/pluginfile.php/1/theme_edumy/headerlogo1/1604959123/ASN_Logo_Site_Vertical%20-%20Copy1.png' width = '20%'>"
+date: "Junho de 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: "css/xaringan-themer.css"
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
+```
+
+
+# Shiny empacotado
+
+- Apps começam com uma ideia simples, mas vão **crescendo** até o ponto que não
+conseguimos mais entender onde estão os seus pedaços
+
+- Com **módulos**, é possível separar pedaços de um shiny em scripts separados, que
+são adicionados como funções dentro do app principal
+
+  - Um módulo pode usar funções de certo pacote, e às vezes esquecemos de checar
+  se ele está instalado quando o app for colocado em produção
+
+- Uma alternativa muito útil é desenvolver o shiny dentro de um **pacote**
+
+  - As **dependências** são checadas automaticamente
+  
+  - Os módulos se tornam **funções** do pacote
+  
+  - Tudo deve ficar **documentado** e organizado por padrão
+
+---
+# O pacote {golem}
+
+> `{golem}` é um framework opinionado para construir aplicações shiny prontas
+para produção https://engineering-shiny.org
+
+- O `{golem}` cria **templates** estruturadas que facilitam o desenvolvimento,
+configuração, manutenção e implantação de um dashboard shiny
+
+  - A template é um **pacote** R, importante pelos motivos destacados antes
+  
+  - Contém uma coleção de funções que **aceleram** tarefas repetitivas
+  
+  - Possui diversos **atalhos** para criar arquivos comuns
+  
+  - Traz funções que automatizam a preparação para o **deploy**
+
+- Eu pessoalmente acho a template muito carregada, mas muita gente gosta
+
+---
+# Exemplo de {golem}
+
+- A função `create_golem()` cria um projeto-pacote com toda a estrutura
+
+  - `R/` deve conter as funções, `dev/` ajuda a montar o shiny e `inst/` fica
+  com os recursos auxiliares
+
+```{r, eval=FALSE}
+library(golem)
+
+create_golem("arqs/exemplo_shiny/", package_name = "exemplo")
+```
+
+- O primeiro passo é passar pelo arquivo `dev/01_start.R` para configurar o app
+
+- O segundo é desenvolver o app (`dev/02_dev.R` pode ajudar)
+
+- O último passo é criar a estrutura para deploy com `dev/03_deploy.R`
+
+  - Nunca esquecer de instalar o app e testar com `exemplo::run_app()`
+
+---
+
+```{r, echo=FALSE}
+fs::dir_tree("../arqs/exemplo_shiny/")
+```
+
+---
+class: inverse, center, middle
+# Deploy II
+
+---
+# Preparação para deploy
+
+- Como o shiny é um pacote, podemos seguir os passos de **desenvolvimento** de
+pacotes antes de colocá-lo em produção
+
+  - Rodar `devtools::check()` para garantir que tudo está **em ordem**
+
+  - **Instalar** o app com `devtools::install()`
+  
+  - **Executar o app** em uma sessão limpa com `exemplo::run_app()`
+
+- Quando o shiny estiver pronto, adicionar um **Dockerfile** com `add_dockerfile()`
+
+  - O Dockerfile **não é otimizado** para o Google Cloud e isso pode implicar em
+  alguns problemas
+  
+  - Quando necessário, edite o Dockerfile para **adequá-lo** ao ambiente real
+  onde ele será implantado
+
+---
+
+```{r, eval=FALSE}
+add_dockerfile()
+```
+
+```{}
+FROM rocker/r-ver:4.0.2
+RUN apt-get update && apt-get install -y  git-core libcurl4-openssl-dev libgit2-dev libssh2-1-dev libssl-dev libxml2-dev make pandoc pandoc-citeproc zlib1g-dev && rm -rf /var/lib/apt/lists/*
+RUN echo "options(repos = c(CRAN = 'https://cran.rstudio.com/'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
+RUN R -e 'install.packages("remotes")'
+RUN R -e 'remotes::install_github("r-lib/remotes", ref = "97bbf81")'
+RUN Rscript -e 'remotes::install_version("config",upgrade="never", version = "0.3")'
+RUN Rscript -e 'remotes::install_version("golem",upgrade="never", version = "0.2.1")'
+RUN Rscript -e 'remotes::install_version("shiny",upgrade="never", version = "1.5.0")'
+RUN Rscript -e 'remotes::install_version("attempt",upgrade="never", version = "0.3.1")'
+RUN Rscript -e 'remotes::install_version("DT",upgrade="never", version = "0.13")'
+RUN Rscript -e 'remotes::install_version("glue",upgrade="never", version = "1.4.1")'
+RUN Rscript -e 'remotes::install_version("htmltools",upgrade="never", version = "0.5.0")'
+RUN mkdir /build_zone
+ADD . /build_zone
+WORKDIR /build_zone
+RUN R -e 'remotes::install_local(upgrade="never")'
+EXPOSE 80
+CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');exemplo::run_app()"
+```
+
+---
+# Exemplo de CD no GCP
+
+1. Menu Lateral
+
+1. Cloud Build
+
+1. **Acionadores**
+
+1. Conectar repositório
+
+1. GitHub
+
+1. Criar **gatilho**
+
+1. Editar gatilho
+
+1. Verificar progresso
+
+1. Garantir sucesso
+
+---
+# Exemplo de deploy no GCP
+
+1. Menu Lateral
+
+1. Google Compute Engine
+
+1. Criar **instância**
+
+1. Implante uma **imagem** de contêiner nesta instância de VM
+
+1. Menu Lateral
+
+1. Rede VPC
+
+1. Endereços **IP externos**
+
+1. Tipo: Temporário > **Estático**
+
+---
+# Testando o shiny
+
+- **Navegar** para o link correpondente ao IP: http://104.198.249.27
+
+  - A **porta 80** é a padrão para o tráfego HTTP, então não há necessidade de
+  especificar nada
+
+```{r, echo=FALSE, fig.align='center', dpi=160}
+knitr::include_graphics("static/shiny.png")
+```

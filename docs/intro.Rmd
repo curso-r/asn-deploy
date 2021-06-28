@@ -1,0 +1,125 @@
+---
+title: "Deploy com R"
+subtitle: "Athos Petri Damiani"
+author: "<img src = 'https://jedis.asn.rocks/pluginfile.php/1/theme_edumy/headerlogo1/1604959123/ASN_Logo_Site_Vertical%20-%20Copy1.png' width = '20%'>"
+date: "Junho de 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: "css/xaringan-themer.css"
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
+```
+
+
+---
+# Plano 
+
+- Organização de projetos no R/RStudio 
+
+- Ferramentas úteis: git, github, github pages, github actions.
+
+- APIs no R 
+
+- Docker
+
+- Shiny
+
+- Como automatizar um deploy de APIs e Shiny na GCP
+
+---
+# Plano 
+
+- **Aula 1)** Rproj, github, api, docker, deploy
+
+- **Aula 2)** deploy (cont.), github actions, pacotes de R
+
+- **Aula 3)** pacotes de R, exemplo auto do Marlos, Intro ao Shiny.
+
+- **Aula 4)** Shiny
+
+- **Aula 5)** Shiny
+
+- **Aula 6)** deploy Shiny + Miscelâneas
+
+---
+# Produto de dados: discussão 
+
+-pull-left[
+
+### Tipos de produtos
+
+- blog
+- Dashboards estáticos
+- Dashboards Interativos
+- API
+- Caixa de Ferramentas (e.g. pacotes de R)
+- Relatórios, e-books, slides
+- ...
+
+]
+
+-pull-right[
+
+### Valores
+
+- Reprodutibilidade
+- Alta disponibilidade/Persistência
+- Documentação
+- Aparência
+- Funcionar em qualquer máquina
+- Rapidez
+- Preço
+- Multi-formatos
+- Integração (conversar com outras ferramentas)
+- Atualização/Tempestividade
+- Histórico/Dados
+
+]
+
+
+---
+# Mapa de techs entre Py e R
+
+```{r, echo=FALSE}
+library(magrittr)
+tibble::tribble(
+  ~Python, ~R,
+  "VSCode", "RStudio",
+  "Jupyter", "RMarkdown",
+  "venv", "renv",
+  "requests", "httr",
+  "pandas", "dplyr",
+  "flask", "plumber",
+  "pip install", "install.packages",
+  "streamlit", "shiny"
+) %>% knitr::kable()
+```
+
+
+---
+# Pré-requisitos
+
+- Conta Google Cloud Platform
+
+- Conta GitHub
+
+- Conta Docker Hub
+
+- R e RStudio
+
+```{r, eval=FALSE}
+install.packages("usethis")
+install.packages("httr")
+install.packages("plumber")
+install.packages("shiny")
+```
+

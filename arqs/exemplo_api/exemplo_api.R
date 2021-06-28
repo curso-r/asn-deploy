@@ -1,4 +1,3 @@
-
 #* Escreve uma mensagem
 #* @param msg A mensagem para escrever
 #* @get /echo
@@ -38,4 +37,4 @@ function(req, id, name) {
     raw = req$bodyRaw
   )
 }
-# curl --data "id=123&name=Jennifer" "http://localhost:8000/user"
+# curl --data "id=123&name=Athos" "http://localhost:8000/user"
