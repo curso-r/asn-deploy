@@ -35,6 +35,8 @@ PS1: vou dar aula no Windows 10. PS2: O Docker é pesado (gigas e gigas).
 Se sua máquina não suportar, você ainda poderá participar da aula usando
 o [Play With Docker](https://labs.play-with-docker.com/).
 
+# slides
+
 # Coisas extras
 
 -   [Repo do Auto (que o Marlos fez) em
