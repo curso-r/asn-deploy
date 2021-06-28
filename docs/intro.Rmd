@@ -53,7 +53,7 @@ knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
 ---
 # Produto de dados: discussão 
 
--pull-left[
+.pull-left[
 
 ### Tipos de produtos
 
@@ -67,7 +67,7 @@ knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
 
 ]
 
--pull-right[
+.pull-right[
 
 ### Valores
 
