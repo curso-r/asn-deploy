@@ -285,7 +285,7 @@ docker stop
 ```
 
 
--footnote[
+.footnote[
  caso não tenham Docker instalado dá para praticar no [Play With Docker](https://labs.play-with-docker.com/)
 ]
 
@@ -299,11 +299,11 @@ docker stop
 ```{r, eval=FALSE}
 FROM rocker/r-ver:4.0.5
 
-RUN apt update
+RUN apt update -y
 
 COPY . /meuApp
 
-CMD ["Rscript", "-e 'Hello World do R'"]
+CMD ["Rscript", "2+2"]
 ```
 
 ---
@@ -399,7 +399,7 @@ class: inverse, center, middle
 ---
 # Exemplo de CD no GCP
 
-### 1) habilitar Cloud Build API
+#### 1) habilitar Cloud Build API
 
 1. Menu Lateral
 

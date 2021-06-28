@@ -96,7 +96,7 @@ resposta
 
 ```
 #&gt; Response [https://pokeapi.co/api/v2/pokemon/ditto]
-#&gt;   Date: 2021-06-28 19:51
+#&gt;   Date: 2021-06-28 20:30
 #&gt;   Status: 200
 #&gt;   Content-Type: application/json; charset=utf-8
 #&gt;   Size: 20.5 kB
@@ -306,7 +306,7 @@ docker stop
 ```
 
 
--footnote[
+.footnote[
  caso não tenham Docker instalado dá para praticar no [Play With Docker](https://labs.play-with-docker.com/)
 ]
 
@@ -321,11 +321,11 @@ docker stop
 ```r
 FROM rocker/r-ver:4.0.5
 
-RUN apt update
+RUN apt update -y
 
 COPY . /meuApp
 
-CMD ["Rscript", "-e 'Hello World do R'"]
+CMD ["Rscript", "2+2"]
 ```
 
 ---
@@ -421,7 +421,7 @@ class: inverse, center, middle
 ---
 # Exemplo de CD no GCP
 
-### 1) habilitar Cloud Build API
+#### 1) habilitar Cloud Build API
 
 1. Menu Lateral
 
