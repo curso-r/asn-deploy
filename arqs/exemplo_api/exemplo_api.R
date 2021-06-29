@@ -1,7 +1,12 @@
+#* @apiTitle asdasd
+
+#* @apiDescription dfsdfdsf
+
 #* Escreve uma mensagem
 #* @param msg A mensagem para escrever
+#* @param titulo o titulo
 #* @get /echo
-function(msg = "") {
+function(msg = "", titulo = "") {
   paste0("A mensagem é: '", msg, "'")
 }
 
@@ -38,4 +43,3 @@ function(req, id, name) {
     raw = req$bodyRaw
   )
 }
-# curl --data "id=123&name=Athos" "http://localhost:8000/user"
