@@ -3,7 +3,7 @@ library(plumber)
 r <- plumb("exemplo_api.R")
 
 r$handle("GET", "/", function(req, res){
-  200
+  2000
 })
 
 

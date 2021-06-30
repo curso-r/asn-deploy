@@ -96,7 +96,7 @@ resposta
 
 ```
 #&gt; Response [https://pokeapi.co/api/v2/pokemon/ditto]
-#&gt;   Date: 2021-06-28 20:30
+#&gt;   Date: 2021-06-30 19:06
 #&gt;   Status: 200
 #&gt;   Content-Type: application/json; charset=utf-8
 #&gt;   Size: 20.5 kB
@@ -419,85 +419,41 @@ class: inverse, center, middle
 # Deploy
 
 ---
-# Exemplo de CD no GCP
+# Exemplo de CD no GCP Cloud Run
 
-#### 1) habilitar Cloud Build API
+1. Menu Lateral &gt; **Cloud Run**
 
-1. Menu Lateral
+1. **+ CRIAR SERVIÇO**
 
-1. API e Serviços
+1. Configurações do serviço
 
-1. Clique em **+ HABILITAR APIS E SERVIÇOS**
+  - Dê um nome qualquer (e.g. "plumberzinho") 
+  - Escolha a região (pode deixar a padrão)
+  - **PRÓXIMA**
 
-1. Procurar por Cloud Build API
+1. Configurar a primeira revisão do serviço:
 
-1. Habilitar (botão azul)
-
+  - Escolha a segunda opção: **Implantar continuamente novas revisões de um repositório de origem**
+  - **SET UP WITH CLOUD BUILD**
+  - Escolha "Github" e dê permissões
+  - Encontre o seu repositório que tem o seu plumber e o seu Dockerfile dentro.
+  - **PRÓXIMA**
+  
 ---
-# Exemplo de CD no GCP
+# Exemplo de CD no GCP Cloud Run
 
-#### 2) Cloud Build 
+  - Ramificação: trocar de `^main$` para `^master$`
+  - Build Type: **Dockerfile**
+  - Local de origem do Dockerfile: Especifique o caminho das pastas onde fica o dockerfile
+  - **SALVAR**
+  - **PRÓXIMA**
+  
+5. Configurar como este serviço é acionado:
 
-
-1. Cloud Build
-
-1. **Acionadores**
-
-1. Conectar repositório
-
-1. GitHub
-
-1. Criar **gatilho**
-
-1. Editar gatilho
-
-1. Verificar progresso
-
-1. Garantir sucesso
-
----
-# Exemplo de deploy no GCP
-
-#### 3) Instância de Computador
-
-
-1. IAM e administrador
-
-1. Contas de **serviço**
-
-1. Criar conta de serviço
-
-1. Administrador do **Storage** + Administrador do **Compute**
-
-1. Menu Lateral
-
-1. Google Compute Engine
-
-1. Criar **instância**
-
-1. Implante uma **imagem** de contêiner nesta instância de VM
-
----
-# Exemplo de deploy no GCP (cont.)
-
-#### 4) Abrir portas de rede
-
-
-1. Rede VPC
-
-1. Firewall
-
-1. Criar regra de **firewall**
-
-1. Intervalos de IP de origem: **0.0.0.0/0**
-
-1. Menu Lateral
-
-1. Rede VPC
-
-1. Endereços **IP externos**
-
-1. Tipo: Temporário &gt; **Estático**
+  - Permitir todo o tráfego
+  - Permitir invocações não autenticadas
+  - **CRIAR**
+  
 
 ---
 # Testando um deploy
@@ -524,7 +480,7 @@ todos os problemas pelo qual o programa pode passar
 
 ```r
 params &lt;- list(msg = "Testado!")
-resp &lt;- GET("http://34.66.246.102:8000/echo", query = params)
+resp &lt;- GET("http://&lt;link.do.app&gt;/echo", query = params)
 
 content(resp)[[1]]
 ```
@@ -538,7 +494,7 @@ content(resp)[[1]]
 
 ```r
 params &lt;- list(a = 2, b = 6)
-resp &lt;- POST("http://34.66.246.102:8000/sum", body = params, encode = "json")
+resp &lt;- POST("http://&lt;link.do.app&gt;/sum", body = params, encode = "json")
 
 content(resp)[[1]]
 ```
