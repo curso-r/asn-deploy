@@ -39,3 +39,9 @@ o [Play With Docker](https://labs.play-with-docker.com/).
 
 -   [Repo do Auto (que o Marlos fez) em
     R](https://github.com/curso-r/asn-auto)
+
+-   [Pacote Google Cloud
+    Runner](https://code.markedmondson.me/googleCloudRunner/)
+
+-   [Pacote Compute Engine
+    R](https://cloudyr.github.io/googleComputeEngineR/)

@@ -21,7 +21,99 @@ class: center, middle, inverse, title-slide
 
 
 
+class: inverse, center, middle
+# Deploy I: Shiny (sem golem)
 
+  
+---
+# Exemplo de CD no GCP Compute Engine
+
+#### 1) habilitar Cloud Build API
+
+1. Menu Lateral
+
+1. API e Serviços
+
+1. Clique em **+ HABILITAR APIS E SERVIÇOS**
+
+1. Procurar por Cloud Build API
+
+1. Habilitar (botão azul)
+
+---
+# Exemplo de CD no GCP Compute Engine
+
+#### 2) Cloud Build 
+
+
+1. Cloud Build
+
+1. **Acionadores**
+
+1. Conectar repositório
+
+1. GitHub
+
+1. Criar **gatilho**
+
+1. Editar gatilho
+
+1. Verificar progresso
+
+1. Garantir sucesso
+
+---
+# Exemplo de deploy no GCP Compute Engine
+
+#### 3) Instância de Computador
+
+
+1. IAM e administrador
+
+1. Contas de **serviço**
+
+1. Criar conta de serviço
+
+1. Administrador do **Storage** + Administrador do **Compute**
+
+1. Menu Lateral
+
+1. Google Compute Engine
+
+1. Criar **instância**
+
+1. Implante uma **imagem** de contêiner nesta instância de VM
+
+---
+# Exemplo de deploy no GCP  Compute Engine 
+
+#### 4) Abrir portas de rede
+
+
+1. Rede VPC
+
+1. Firewall
+
+1. Criar regra de **firewall**
+
+1. Intervalos de IP de origem: **0.0.0.0/0**
+
+1. Menu Lateral
+
+1. Rede VPC
+
+1. Endereços **IP externos**
+
+1. Tipo: Temporário &gt; **Estático**
+
+
+
+
+---
+class: inverse, center, middle
+# Deploy II: Shiny Empacotado
+
+---
 # Shiny empacotado
 
 - Apps começam com uma ideia simples, mas vão **crescendo** até o ponto que não
@@ -88,30 +180,127 @@ create_golem("arqs/exemplo_shiny/", package_name = "exemplo")
 
 ```
 #&gt; ../arqs/exemplo_shiny/
-#&gt; +-- DESCRIPTION
-#&gt; +-- dev
-#&gt; |   +-- 01_start.R
-#&gt; |   +-- 02_dev.R
-#&gt; |   +-- 03_deploy.R
-#&gt; |   \-- run_dev.R
+#&gt; +-- app.R
 #&gt; +-- Dockerfile
 #&gt; +-- exemplo_shiny.Rproj
-#&gt; +-- inst
-#&gt; |   +-- app
-#&gt; |   |   \-- www
-#&gt; |   |       \-- favicon.ico
-#&gt; |   \-- golem-config.yml
-#&gt; +-- NAMESPACE
-#&gt; \-- R
-#&gt;     +-- app_config.R
-#&gt;     +-- app_server.R
-#&gt;     +-- app_ui.R
-#&gt;     \-- run_app.R
+#&gt; +-- renv
+#&gt; |   +-- activate.R
+#&gt; |   +-- library
+#&gt; |   |   \-- R-4.0
+#&gt; |   |       \-- x86_64-w64-mingw32
+#&gt; |   |           +-- base64enc
+#&gt; |   |           +-- bslib
+#&gt; |   |           +-- cachem
+#&gt; |   |           +-- commonmark
+#&gt; |   |           +-- crayon
+#&gt; |   |           +-- digest
+#&gt; |   |           +-- ellipsis
+#&gt; |   |           +-- fastmap
+#&gt; |   |           +-- fs
+#&gt; |   |           +-- glue
+#&gt; |   |           +-- htmltools
+#&gt; |   |           +-- httpuv
+#&gt; |   |           +-- jquerylib
+#&gt; |   |           +-- jsonlite
+#&gt; |   |           +-- later
+#&gt; |   |           +-- lifecycle
+#&gt; |   |           +-- magrittr
+#&gt; |   |           +-- mime
+#&gt; |   |           +-- promises
+#&gt; |   |           +-- R6
+#&gt; |   |           +-- rappdirs
+#&gt; |   |           +-- Rcpp
+#&gt; |   |           +-- renv
+#&gt; |   |           |   +-- bin
+#&gt; |   |           |   |   +-- renv
+#&gt; |   |           |   |   \-- renv.bat
+#&gt; |   |           |   +-- config.yml
+#&gt; |   |           |   +-- DESCRIPTION
+#&gt; |   |           |   +-- doc
+#&gt; |   |           |   |   +-- ci.html
+#&gt; |   |           |   |   +-- ci.R
+#&gt; |   |           |   |   +-- ci.Rmd
+#&gt; |   |           |   |   +-- collaborating.html
+#&gt; |   |           |   |   +-- collaborating.R
+#&gt; |   |           |   |   +-- collaborating.Rmd
+#&gt; |   |           |   |   +-- docker.html
+#&gt; |   |           |   |   +-- docker.R
+#&gt; |   |           |   |   +-- docker.Rmd
+#&gt; |   |           |   |   +-- faq.html
+#&gt; |   |           |   |   +-- faq.R
+#&gt; |   |           |   |   +-- faq.Rmd
+#&gt; |   |           |   |   +-- index.html
+#&gt; |   |           |   |   +-- local-sources.html
+#&gt; |   |           |   |   +-- local-sources.R
+#&gt; |   |           |   |   +-- local-sources.Rmd
+#&gt; |   |           |   |   +-- lockfile.html
+#&gt; |   |           |   |   +-- lockfile.R
+#&gt; |   |           |   |   +-- lockfile.Rmd
+#&gt; |   |           |   |   +-- mran.html
+#&gt; |   |           |   |   +-- mran.R
+#&gt; |   |           |   |   +-- mran.Rmd
+#&gt; |   |           |   |   +-- packages.html
+#&gt; |   |           |   |   +-- packages.R
+#&gt; |   |           |   |   +-- packages.Rmd
+#&gt; |   |           |   |   +-- profiles.html
+#&gt; |   |           |   |   +-- profiles.R
+#&gt; |   |           |   |   +-- profiles.Rmd
+#&gt; |   |           |   |   +-- python.html
+#&gt; |   |           |   |   +-- python.R
+#&gt; |   |           |   |   +-- python.Rmd
+#&gt; |   |           |   |   +-- renv.html
+#&gt; |   |           |   |   +-- renv.R
+#&gt; |   |           |   |   +-- renv.Rmd
+#&gt; |   |           |   |   +-- rsconnect.html
+#&gt; |   |           |   |   +-- rsconnect.R
+#&gt; |   |           |   |   +-- rsconnect.Rmd
+#&gt; |   |           |   |   +-- use.html
+#&gt; |   |           |   |   +-- use.R
+#&gt; |   |           |   |   \-- use.Rmd
+#&gt; |   |           |   +-- help
+#&gt; |   |           |   |   +-- aliases.rds
+#&gt; |   |           |   |   +-- AnIndex
+#&gt; |   |           |   |   +-- figures
+#&gt; |   |           |   |   |   \-- logo.svg
+#&gt; |   |           |   |   +-- paths.rds
+#&gt; |   |           |   |   +-- renv.rdb
+#&gt; |   |           |   |   \-- renv.rdx
+#&gt; |   |           |   +-- html
+#&gt; |   |           |   |   +-- 00Index.html
+#&gt; |   |           |   |   \-- R.css
+#&gt; |   |           |   +-- INDEX
+#&gt; |   |           |   +-- LICENSE
+#&gt; |   |           |   +-- MD5
+#&gt; |   |           |   +-- Meta
+#&gt; |   |           |   |   +-- features.rds
+#&gt; |   |           |   |   +-- hsearch.rds
+#&gt; |   |           |   |   +-- links.rds
+#&gt; |   |           |   |   +-- nsInfo.rds
+#&gt; |   |           |   |   +-- package.rds
+#&gt; |   |           |   |   +-- Rd.rds
+#&gt; |   |           |   |   \-- vignette.rds
+#&gt; |   |           |   +-- NAMESPACE
+#&gt; |   |           |   +-- NEWS.md
+#&gt; |   |           |   +-- R
+#&gt; |   |           |   |   +-- renv
+#&gt; |   |           |   |   +-- renv.rdb
+#&gt; |   |           |   |   \-- renv.rdx
+#&gt; |   |           |   \-- resources
+#&gt; |   |           |       +-- activate.R
+#&gt; |   |           |       +-- scripts-git-askpass.sh
+#&gt; |   |           |       +-- scripts-repos-cache.R
+#&gt; |   |           |       \-- WELCOME
+#&gt; |   |           +-- rlang
+#&gt; |   |           +-- sass
+#&gt; |   |           +-- shiny
+#&gt; |   |           +-- sourcetools
+#&gt; |   |           +-- withr
+#&gt; |   |           \-- xtable
+#&gt; |   +-- local
+#&gt; |   +-- settings.dcf
+#&gt; |   \-- staging
+#&gt; \-- renv.lock
 ```
-
----
-class: inverse, center, middle
-# Deploy II
 
 ---
 # Preparação para deploy

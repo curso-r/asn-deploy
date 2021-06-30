@@ -42,3 +42,7 @@ PS2: O Docker é pesado (gigas e gigas). Se sua máquina não suportar, você ai
 # Coisas extras
 
 - [Repo do Auto (que o Marlos fez) em R](https://github.com/curso-r/asn-auto)
+
+- [Pacote Google Cloud Runner](https://code.markedmondson.me/googleCloudRunner/)
+
+- [Pacote Compute Engine R](https://cloudyr.github.io/googleComputeEngineR/)
