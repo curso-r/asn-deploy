@@ -1,5 +1,4 @@
 library(shiny)
-library(listviewer)
 
 ui <- fluidPage(
     titlePanel("Old Faithful Geyser Data"),

@@ -18,8 +18,19 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
 ```
+---
+class: inverse, center, middle
+# Deploy I: Shiny Padrão
 
 
+
+
+
+---
+class: inverse, center, middle
+# Deploy II: Shiny Empacotado
+
+---
 # Shiny empacotado
 
 - Apps começam com uma ideia simples, mas vão **crescendo** até o ponto que não
@@ -85,10 +96,6 @@ create_golem("arqs/exemplo_shiny/", package_name = "exemplo")
 ```{r, echo=FALSE}
 fs::dir_tree("../arqs/exemplo_shiny/")
 ```
-
----
-class: inverse, center, middle
-# Deploy II
 
 ---
 # Preparação para deploy
