@@ -6,6 +6,7 @@ docker ps
 docker ps -a
 docker run hello-world -t opa
 docker ps -a
+docker rm
 
 docker ps -a -q
 docker stop $(docker ps -a -q)
