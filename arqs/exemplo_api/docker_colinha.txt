@@ -5,6 +5,11 @@ docker run ubuntu:latest
 docker ps
 docker ps -a
 docker run hello-world -t opa
+docker ps -a
+
+docker ps -a -q
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
 
 docker build .
 docker build . -t minhaImagem
