@@ -7,7 +7,7 @@
 #* @param titulo o titulo
 #* @get /echo
 function(msg = "", titulo = "") {
-  paste0("A mensagem é: '", msg, "'")
+  paste0("A mensagem é OPA!!!: '", msg, "'")
 }
 
 
