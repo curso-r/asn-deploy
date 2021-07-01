@@ -36,5 +36,13 @@ POST(
 # Espaço para a nossa API -------------------------------------------------
 eco <- GET("http://127.0.0.1:8000/echo", query = list(msg = "OK"))
 
+dados <- list(
+  a = 100,
+  b = 200
+)
 
+soma <- POST("https://plumberzinho-2ttjicpeda-uc.a.run.app/sum",
+             body = dados,
+             encode = "json")
+content(soma)
 
