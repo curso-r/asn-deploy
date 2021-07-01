@@ -1,6 +1,6 @@
 # Exercício de plumber
 
-# 0) combo usethis para criar projetos
+# 0) combo usethis para criar projetos (usethis::use_git() ...)
 # 1) crie um arquivo endpoints.R
 # 2) crie um endpoint GET que receba um argumento chamado obj
 # 3) "Decore" a documentação com #* iformando os parâmetros e o Título.
@@ -15,9 +15,12 @@
 
 # Exercício de Docker
 # Criar um Dockerfile
-# - use a imagem rstudio/plumber
-# - copie os dois arquivos do plumber (o dos endpoints e o do plumb) para o container
-# - exponha a porta 8000
-# - faça o comando padrão rodar o arquivo que faz o plumb. DICA: o handler é o Rscript
+# - (FROM) use a imagem rstudio/plumber
+# - (COPY) copie os dois arquivos do plumber (o dos endpoints e o do plumb) para o container
+# - (EXPORT) exponha a porta 8080
+# - (CMD) faça o comando padrão rodar o arquivo que faz o plumb. DICA: o handler é o Rscript
 
-
+# Exercício Deploy
+# Jogar os arquivos pro Github
+# Criar um Cloud Run
+# Testar se está funcionando
