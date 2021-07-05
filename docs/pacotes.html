@@ -36,6 +36,19 @@ class: center, middle, inverse, title-slide
 1. Disponibilizando seu pacote
 
 ---
+# Referências  e materiais para estudo
+
+- [R Packages](https://r-pkgs.org), livro aprofundado sobre desenvolvimento de pacotes.
+
+- [R for Data Science - capítulo sobre Funcões](https://r4ds.had.co.nz/functions.html)
+
+- [Zen do R](https://curso-r.github.io/zen-do-r/), livro em desenvolvimento pela Curso-R.
+
+- [Materiais da R-Ladies SP sobre a Hacktoberfest 2020](https://r-ladies-sao-paulo.github.io/2020-hacktoberfest/).
+
+- [Folha de dicas do Git em Português](https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/)
+
+---
 class: middle, center, inverse
 # Preparando o ambiente de desenvolvimento
 
@@ -561,6 +574,17 @@ Podemos usar a função `devtools::check()`. Ela carrega todo o código, gera to
 1. Adicione suas informações no `DESCRIPTION`: nome, descrição do pacote, etc.
 
 ---
+# Instalando seu pacote
+
+- Localmente: `remotes::install_local("caminho/ate/meuPacote")`
+
+- Direto do Github: `remotes::install_github("meuUsuario/meuPacote")`
+
+...
+
+- Se um dia chegar ao CRAN: `install.packages("meuPacote")`
+
+---
 # A pasta R/
 
 Dentro de um pacote, a pasta `R/` só pode ter arquivos R com funções.
@@ -820,28 +844,6 @@ Algumas recomendação sobre como organizar seu código:
 
 - Não usar "metapackages" (como o tidyverse)
 
----
-# Criando uma função na prática
-
-- Crie um arquivo onde iremos escrever a função para o pacote. Dica: use a função `usethis::use_r("nome-do-arquivo")`!
-
-- Copie o código disponível em [git.io/JO8NV](https://git.io/JO8NV) e cole no arquivo criado.
-
-- Adapte o código e o transforme em uma função. Não esqueça das dependências
-
-- Verifique que o arquivo onde sua função foi escrita está no diretório `R/` e que as dependências estão descritas no arquivo `DESCRIPTION`
-
-- Carregue o pacote com `devtools::load_all()`, e confira se está tudo ok com `devtools::check()`!
-
-### Exercícios
-
-- [Exercício: git.io/JO8Nr](https://git.io/JO8Nr)
-
-- [Desafio: git.io/JO8NP](https://git.io/JO8NP)
-
-
-
-.footnote[Fonte: dados do [pacote brasileirão](https://blog.curso-r.com/posts/2021-03-02-brasileirao/)]
 
 ---
 # Dados
