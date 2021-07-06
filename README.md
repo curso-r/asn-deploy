@@ -45,3 +45,11 @@ o [Play With Docker](https://labs.play-with-docker.com/).
 
 -   [Pacote Compute Engine
     R](https://cloudyr.github.io/googleComputeEngineR/)
+
+# Exemplos de Dockerfiles
+
+-   [https://github.com/decryptr/api/blob/master/Dockerfile]()
+
+-   [https://github.com/curso-r/relatorioSennaApi/blob/master/Dockerfile]()
+
+-   [https://github.com/curso-r/shinygcp/blob/master/Dockerfile]()

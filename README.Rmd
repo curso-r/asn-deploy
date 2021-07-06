@@ -46,3 +46,13 @@ PS2: O Docker é pesado (gigas e gigas). Se sua máquina não suportar, você ai
 - [Pacote Google Cloud Runner](https://code.markedmondson.me/googleCloudRunner/)
 
 - [Pacote Compute Engine R](https://cloudyr.github.io/googleComputeEngineR/)
+
+
+# Exemplos de Dockerfiles
+
+- [https://github.com/decryptr/api/blob/master/Dockerfile]()
+
+- [https://github.com/curso-r/relatorioSennaApi/blob/master/Dockerfile]()
+
+- [https://github.com/curso-r/shinygcp/blob/master/Dockerfile]()
+
