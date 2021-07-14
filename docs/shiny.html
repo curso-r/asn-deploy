@@ -21,94 +21,6 @@ class: center, middle, inverse, title-slide
 
 
 
-class: inverse, center, middle
-# Deploy I: Shiny (sem golem)
-
-  
----
-# Exemplo de CD no GCP Compute Engine
-
-#### 1) habilitar Cloud Build API
-
-1. Menu Lateral
-
-1. API e Serviços
-
-1. Clique em **+ HABILITAR APIS E SERVIÇOS**
-
-1. Procurar por Cloud Build API
-
-1. Habilitar (botão azul)
-
----
-# Exemplo de CD no GCP Compute Engine
-
-#### 2) Cloud Build 
-
-
-1. Cloud Build
-
-1. **Acionadores**
-
-1. Conectar repositório
-
-1. GitHub
-
-1. Criar **gatilho**
-
-1. Editar gatilho
-
-1. Verificar progresso
-
-1. Garantir sucesso
-
----
-# Exemplo de deploy no GCP Compute Engine
-
-#### 3) Instância de Computador
-
-
-1. IAM e administrador
-
-1. Contas de **serviço**
-
-1. Criar conta de serviço
-
-1. Administrador do **Storage** + Administrador do **Compute**
-
-1. Menu Lateral
-
-1. Google Compute Engine
-
-1. Criar **instância**
-
-1. Implante uma **imagem** de contêiner nesta instância de VM
-
----
-# Exemplo de deploy no GCP  Compute Engine 
-
-#### 4) Abrir portas de rede
-
-
-1. Rede VPC
-
-1. Firewall
-
-1. Criar regra de **firewall**
-
-1. Intervalos de IP de origem: **0.0.0.0/0**
-
-1. Menu Lateral
-
-1. Rede VPC
-
-1. Endereços **IP externos**
-
-1. Tipo: Temporário &gt; **Estático**
-
-
-
-
 ---
 class: inverse, center, middle
 # Deploy II: Shiny Empacotado
@@ -351,6 +263,7 @@ CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');exemplo::run_app()"
 ```
 
 ---
+
 # Exemplo de CD no GCP
 
 1. Menu Lateral
@@ -367,18 +280,23 @@ CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');exemplo::run_app()"
 
 1. Editar gatilho
 
+---
+
+# Exemplo de deploy no GCP
+
 1. Verificar progresso
 
 1. Garantir sucesso
-
----
-# Exemplo de deploy no GCP
 
 1. Menu Lateral
 
 1. Google Compute Engine
 
 1. Criar **instância**
+
+
+---
+# Exemplo de deploy no GCP
 
 1. Implante uma **imagem** de contêiner nesta instância de VM
 
