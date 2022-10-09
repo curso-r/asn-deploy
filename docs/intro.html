@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 # Deploy com R
 ## Athos Petri Damiani
 ### <img src = 'https://jedis.asn.rocks/pluginfile.php/1/theme_edumy/headerlogo1/1604959123/ASN_Logo_Site_Vertical%20-%20Copy1.png' width = '20%'>
-### Junho de 2021
+### Outubro de 2022
 
 ---
 
@@ -25,11 +25,11 @@ class: center, middle, inverse, title-slide
 ---
 # Plano 
 
+- APIs no R 
+
 - Organização de projetos no R/RStudio 
 
 - Ferramentas úteis: git, github, github pages, github actions.
-
-- APIs no R 
 
 - Docker
 
@@ -40,17 +40,15 @@ class: center, middle, inverse, title-slide
 ---
 # Plano 
 
-- **Aula 1)** Rproj, github, api, docker, deploy
+- **Aula 1)** Rproj, Rscript, github, api, Azure Store no R
 
-- **Aula 2)** deploy (cont.), github actions, pacotes de R
+- **Aula 2)** github pages, github actions, exemplo blog distill
 
-- **Aula 3)** pacotes de R, exemplo auto do Marlos, Intro ao Shiny.
+- **Aula 3)** Dcoker, exemplo auto do Marlos
 
 - **Aula 4)** Shiny
 
-- **Aula 5)** Shiny
-
-- **Aula 6)** deploy Shiny + Miscelâneas
+- **Aula 5)** deploy Shiny + Miscelâneas
 
 ---
 # Produto de dados: discussão 
@@ -59,10 +57,10 @@ class: center, middle, inverse, title-slide
 
 ### Tipos de produtos
 
-- blog
+- APIs
+- blogs
 - Dashboards estáticos
-- Dashboards Interativos
-- API
+- Dashboards interativos
 - Caixa de Ferramentas (e.g. pacotes de R)
 - Relatórios, e-books, slides
 - ...
@@ -89,16 +87,22 @@ class: center, middle, inverse, title-slide
 
 
 ---
-# Mapa de techs entre Py e R
+# Mapa de ferramentas entre Py e R
+
+
+```
+#&gt; Warning: package 'magrittr' was built under R version 4.1.2
+```
+
 
 
 |Python      |R                |
 |:-----------|:----------------|
 |VSCode      |RStudio          |
-|Jupyter     |RMarkdown        |
+|Jupyter     |RMarkdown/Quarto |
 |venv        |renv             |
 |requests    |httr             |
-|pandas      |dplyr            |
+|pandas      |tidyverse        |
 |flask       |plumber          |
 |pip install |install.packages |
 |streamlit   |shiny            |

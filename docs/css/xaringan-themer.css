@@ -33,32 +33,28 @@ h1, h2, h3 {
 }
 .remark-slide-content {
   background-color: #ffffff;
-  font-size: 24px;
-
-
-
+  font-size: 20px;
   padding: 1em 4em 1em 4em;
 }
 .remark-slide-content h1 {
-    font-size: 55px;
-}
-.remark-slide-content h2 {
     font-size: 45px;
 }
-.remark-slide-content h3 {
+.remark-slide-content h2 {
     font-size: 35px;
 }
+.remark-slide-content h3 {
+    font-size: 25px;
+}
 .remark-code, .remark-inline-code {
-  font-family: Droid Mono, 'Lucida Console', Monaco, monospace;
+  font-family: 'Source Code Pro', monospace;
 }
 .remark-code {
-  font-size: 0.9em;
+  font-size: 1em;
 }
 .remark-inline-code {
   font-size: 1em;
   color: #022038;
-
-
+  background-color: #f0f0f0;
 }
 .remark-slide-number {
   color: #022038;
@@ -172,4 +168,16 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
     top: 0 !important;
     left: 0 !important;
   }
+}
+
+
+/* Alterações */
+.letramenor{
+  font-size: 0.8em;
+}
+
+/* Anotações temporárias */
+
+.fazer{
+  background-color: #ffff00;
 }

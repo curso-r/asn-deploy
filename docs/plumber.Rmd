@@ -2,7 +2,7 @@
 title: "APIs, plumber e Docker"
 subtitle: "Athos Petri Damiani"
 author: "<img src = 'https://jedis.asn.rocks/pluginfile.php/1/theme_edumy/headerlogo1/1604959123/ASN_Logo_Site_Vertical%20-%20Copy1.png' width = '20%'>"
-date: "Junho de 2021"
+date: "Outubro de 2022"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -35,11 +35,9 @@ knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
 ---
 # Está tudo preparado?
 
-- Conta Google Cloud Platform
+- [Conta Google Cloud Platform](https://console.cloud.google.com/)
 
-- Conta GitHub
-
-- Conta Docker Hub
+- [Conta GitHub](https://github.com/)
 
 - R e RStudio
 
@@ -48,6 +46,7 @@ install.packages("usethis")
 install.packages("httr")
 install.packages("plumber")
 install.packages("shiny")
+install.packages("AzureStor")
 ```
 
 ---
@@ -399,39 +398,70 @@ class: inverse, center, middle
 ---
 # Exemplo de CD no GCP Cloud Run
 
-1. Menu Lateral > **Cloud Run**
+Menu Lateral > **Cloud Run** > **CRIAR SERVIÇO**
 
-1. **+ CRIAR SERVIÇO**
+```{r, echo=FALSE, fig.align='center', out.width="70%"}
+knitr::include_graphics("static/gc01.png")
+```
 
-1. Configurações do serviço
+---
+# Exemplo de CD no GCP Cloud Run
 
-  - Dê um nome qualquer (e.g. "plumberzinho") 
-  - Escolha a região (pode deixar a padrão)
-  - **PRÓXIMA**
-
-1. Configurar a primeira revisão do serviço:
-
+Configurar a primeira revisão do serviço:
   - Escolha a segunda opção: **Implantar continuamente novas revisões de um repositório de origem**
   - **SET UP WITH CLOUD BUILD**
-  - Escolha "Github" e dê permissões
+
+```{r, echo=FALSE, fig.align='center', out.width="90%"}
+knitr::include_graphics("static/gc02.png")
+```
+
+
+
+---
+# Exemplo de CD no GCP Cloud Run
+
+Configurar um repositório de origem:
+  - Primeiro clique em **ENABLE CLOUD BUILD API**
+  - Escolha "Github" e dê permissões (botão Authenticate)
   - Encontre o seu repositório que tem o seu plumber e o seu Dockerfile dentro.
-  - **PRÓXIMA**
+  - clique em **NEXT**
+
+```{r, echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("static/gc03.png")
+```
   
 ---
 # Exemplo de CD no GCP Cloud Run
 
-  - Ramificação: trocar de `^main$` para `^master$`
-  - Build Type: **Dockerfile**
-  - Local de origem do Dockerfile: Especifique o caminho das pastas onde fica o dockerfile
-  - **SALVAR**
-  - **PRÓXIMA**
-  
-5. Configurar como este serviço é acionado:
+Configurar um repositório de origem:
+  - Escolha a branch principal (geralmente é `main` ou `master`)
+  - Build Type: **Dockerfile** (e deixe Source location como `/Dockerfile` mesmo)
+  - clique em **SAVE** e **SAVE**
 
-  - Permitir todo o tráfego
-  - Permitir invocações não autenticadas
-  - **CRIAR**
+
+```{r, echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("static/gc04.png")
+```
   
+
+---
+# Exemplo de CD no GCP Cloud Run
+
+.pull-left[
+Configurar como este serviço é acionado:
+
+- **CPU allocation and pricing:** CPU is only allocated during request processing
+- **Autoscaling:** Mínimo de 1 e máximo de 10
+- **Ingress:** Permitir todo o tráfego
+- **Authentication:** Permitir invocações não autenticadas
+- clique em **CREATE**
+]
+ 
+.pull-right[
+```{r, echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("static/gc05.png")
+```
+] 
 
 ---
 # Testando um deploy
@@ -456,26 +486,14 @@ todos os problemas pelo qual o programa pode passar
 # Testando a API
 
 ```{r, eval=FALSE}
-params <- list(msg = "Testado!")
-resp <- GET("http://<link.do.app>/echo", query = params)
+params <- list(a = 1, b = 5)
+resp <- GET("http://<link.do.app>/somar_dois_numeros", query = params)
 
 content(resp)[[1]]
 ```
 
 ```{r, echo=FALSE}
-"A mensagem é: 'Testado!'"
-```
-
-
-```{r, eval=FALSE}
-params <- list(a = 2, b = 6)
-resp <- POST("http://<link.do.app>/sum", body = params, encode = "json")
-
-content(resp)[[1]]
-```
-
-```{r, echo=FALSE}
-#> 8
+"6"
 ```
 
 

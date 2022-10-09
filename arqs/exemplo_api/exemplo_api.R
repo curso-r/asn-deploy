@@ -20,7 +20,7 @@ function(a, b){
 }
 
 #* Plota um histograma
-#* @png
+#* @serializer png
 #* @get /hist
 function(){
   hist(rnorm(1000))

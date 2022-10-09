@@ -2,7 +2,7 @@
 title: "Deploy de Shiny"
 subtitle: "Athos Petri Damiani"
 author: "<img src = 'https://jedis.asn.rocks/pluginfile.php/1/theme_edumy/headerlogo1/1604959123/ASN_Logo_Site_Vertical%20-%20Copy1.png' width = '20%'>"
-date: "Junho de 2021"
+date: "Outubro de 2022"
 output:
   xaringan::moon_reader:
     lib_dir: libs

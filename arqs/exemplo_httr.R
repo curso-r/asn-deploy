@@ -24,6 +24,9 @@ resp <- GET("https://api.nasa.gov/planetary/apod?date=2019-12-31&api_key=kefCXhy
 content(resp)$url
 BROWSE(content(resp)$url)
 
+# Exemplo Azure Blob Storage --------------------------------------------
+
+
 # Exemplo Slack (bônus/show-off - não reprodutível) ---------------------------------
 # https://app.slack.com/client/T0135BCRH2R/C013KBF2PSM
 incoming_webhook_url <- Sys.getenv("INCOMING_WEBHOOK_URL")
