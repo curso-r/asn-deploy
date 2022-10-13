@@ -42,11 +42,12 @@ knitr::opts_chunk$set(comment = "#>", echo=TRUE, fig.align='center')
 
 - **Aula 2)** github pages, github actions, exemplo blog distill
 
-- **Aula 3)** Dcoker, exemplo auto do Marlos
+- **Aula 3)** Docker, exemplo auto do Marlos
 
 - **Aula 4)** Shiny
 
 - **Aula 5)** deploy Shiny + Miscelâneas
+
 
 ---
 # Produto de dados: discussão 
