@@ -736,33 +736,6 @@ knitr::include_graphics("img/ghpages.gif")
 
 
 ---
-# Pacotes/Projetos e GitHub
-
-
-
-.pull-left[
-
-
-Pacotes/Projetos do R e repositórios do GitHub são melhores amigos
-
-
-
-<br>
-
-O grande cupido dessa amizade é o `{usethis}` <br>
-
-Bônus: Após deixar o pacote no GitHub, outras pessoas poderão instalá-lo usando a função `remotes::install_github("org/repo")`
-]
-
-.pull-right[
-
-```{r echo=FALSE, out.width="90%", fig.align='center'}
-knitr::include_graphics("img/hug.gif")
-```
-
-]
-
----
 class: middle, center, inverse
 name: ci
 
