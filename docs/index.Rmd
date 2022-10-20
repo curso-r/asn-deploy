@@ -16,3 +16,16 @@ data.frame(
   knitr::kable()
 ```
 
+# Exemplos
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+rs <- list.files("arqs/.", pattern = "R$", recursive = TRUE)
+url_site <- "https://curso-r.github.io/asn-deploy/arqs"
+
+data.frame(
+  Nome = rs,
+  link = purrr::map_chr(paste0(url_site, rs), ~ as.character(shiny::a(href = .x, "link")))
+) %>%
+  knitr::kable()
+```
