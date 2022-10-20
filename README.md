@@ -3,9 +3,6 @@
 
 # asn-deploy
 
-mudei o readme direto no github a partir do repo curso-r/asn-deploy (que é o repo original).
-segunda mudanca com coisa nova para a proxima aula.
-
 ``` r
 timestamps <- readRDS("timestamps.rds")
 timestamps <- c(timestamps, timestamp(quiet = TRUE))
@@ -19,7 +16,7 @@ for(timestamp in tail(timestamps)) print(timestamp)
 #> [1] "##------ Thu Oct 20 01:23:36 2022 ------##"
 #> [1] "##------ Thu Oct 20 16:54:50 2022 ------##"
 #> [1] "##------ Thu Oct 20 16:55:21 2022 ------##"
-#> [1] "##------ Thu Oct 20 21:26:22 2022 ------##"
+#> [1] "##------ Thu Oct 20 22:37:50 2022 ------##"
 ```
 
 ``` r
