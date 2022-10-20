@@ -25,7 +25,7 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          Rscript -e 'install.packages("rmarkdown")'
+          Rscript -e 'install.packages(c("rmarkdown", "sessioninfo")'
           Rscript -e 'rmarkdown::render("README.Rmd")'
           git add README.md
           git commit -m 'Re-build README.Rmd' || echo "No changes to commit"
