@@ -3,6 +3,8 @@
 
 # asn-deploy
 
+mudei o readme direto no github a partir do repo curso-r/asn-deploy (que é o repo original).
+
 ``` r
 timestamps <- readRDS("timestamps.rds")
 timestamps <- c(timestamps, timestamp(quiet = TRUE))
