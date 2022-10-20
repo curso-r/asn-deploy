@@ -22,6 +22,7 @@ saveRDS(timestamps, "timestamps.rds")
 ```{r}
 for(timestamp in tail(timestamps)) print(timestamp)
 ```
+
 ```{r}
 sessioninfo::session_info()
 ```
