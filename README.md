@@ -4,6 +4,7 @@
 # asn-deploy
 
 mudei o readme direto no github a partir do repo curso-r/asn-deploy (que é o repo original).
+segunda mudanca com coisa nova para a proxima aula.
 
 ``` r
 timestamps <- readRDS("timestamps.rds")
