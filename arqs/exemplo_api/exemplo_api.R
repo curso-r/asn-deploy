@@ -7,8 +7,14 @@
 #* @param titulo o titulo
 #* @get /echo
 function(msg = "", titulo = "") {
-  paste0("A mensagem é DRI BOITE!!!: '", msg, "'")
+  glue::glue("A mensagem é {msg} e o Titulo é {titulo}")
 }
+
+
+
+
+
+
 
 
 #* Retorna a soma de dois números
@@ -19,6 +25,11 @@ function(a, b){
   as.numeric(a) + as.numeric(b)
 }
 
+
+
+
+
+
 #* Plota um histograma
 #* @serializer png
 #* @get /hist
@@ -26,12 +37,22 @@ function(){
   hist(rnorm(1000))
 }
 
+
+
+
+
+
 #* Hello world em HTML
 #* @serializer html
 #* @get /html
 function(){
   "<html><h1>hello world</h1></html>"
 }
+
+
+
+
+
 
 
 #* @post /user
@@ -43,3 +64,7 @@ function(req, id, name) {
     raw = req$bodyRaw
   )
 }
+
+
+
+

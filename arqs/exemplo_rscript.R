@@ -5,7 +5,12 @@
 
 # quero mais um coment4
 # quero mais um coment5
+
 args <- commandArgs(TRUE)
 
 print(args)
-cat("OK!")
+
+valor <- as.numeric(args[1]) + as.numeric(args[2])
+
+print(valor)
+cat("OK!\n")

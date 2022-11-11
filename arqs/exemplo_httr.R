@@ -1,30 +1,57 @@
 # Exemplo Pokemon ---------------------------------------------------------
-library(httr)
+library(httr) # requests do R
 library(listviewer)
 
-resposta <- httr::GET("https://pokeapi.co/api/v2/pokemon/ditto")
+resposta <- GET("https://pokeapi.co/api/v2/pokemon/ditto")
 
 ditto_infos <- content(resposta)
-jsonedit(list(a = 1, b = list(c = 2, d = 3)))
+listviewer::jsonedit(ditto_infos)
 
-ditto_infos$abilities[[1]]$ability$url
+
+lista <- list(
+  a = 1,
+  b = list(
+    c = 2,
+    d = 3,
+    e = list(
+      f = 5,
+      g = 10
+    )
+  )
+)
+jsonedit(lista)
+
+
+
+
+
+
+
+
+habilidade_do_ditto <- content(GET(ditto_infos$abilities[[1]]$ability$url))
+
+jsonedit(habilidade_do_ditto)
 
 # Exemplo APOD ----------------------------------------------------------
 # https://api.nasa.gov/
 # Sys.setenv(NASA_KEY = "89fcjds0asdj03m3xmzj974")
 # system("setx NASA_KEY kefCXhyjynxSFUgJnRBRfRjFwDrgu66q7jyUe6Dg")
 NASA_KEY <- Sys.getenv("NASA_KEY")
+usethis::edit_r_environ()
+Sys.getenv("NASA_KEY")
+Sys.getenv("TESTE_KEY")
 
 params <- list(
   date = "2019-12-31",
-  api_key = NASA_KEY # Guardada no meu computador
+  api_key = Sys.getenv("NASA_KEY") # Guardada no meu computador
 )
 resp <- GET("https://api.nasa.gov/planetary/apod", query = params)
-resp <- GET("https://api.nasa.gov/planetary/apod?date=2019-12-31&api_key=kefCXhyjynxSFUgJnRBRfRjFwDrgu66q7jyUe6Dg", query = params)
+resp <- GET("https://api.nasa.gov/planetary/apod?date=2020-12-31&api_key=OVW54tyuro6nwOOMAwTs4jPGFc4GpL5iNwtX6CZm")
+
+jsonedit(content(resp))
+
 content(resp)$url
 BROWSE(content(resp)$url)
-
-# Exemplo Azure Blob Storage --------------------------------------------
 
 
 # Exemplo Slack (bônus/show-off - não reprodutível) ---------------------------------
