@@ -2,10 +2,6 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   workflow_dispatch:
-  schedule:
-  - cron: "15 12 * * *"
-  push:
-    branches: [main, master]
 
 name: Aula de Github Actions
 
